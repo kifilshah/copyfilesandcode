@@ -11,8 +11,9 @@
   ],
   "activationEvents": [
     "onCommand:copyfilesandcode.copyFiles",
-    "onCommand:copyfilesandcode.generateCopyList"
-],
+    "onCommand:copyfilesandcode.generateCopyList",
+    "onCommand:copyfilesandcode.restoreFiles"
+  ],
   "main": "./out/extension.js",
   "contributes": {
     "commands": [
@@ -23,6 +24,10 @@
       {
         "command": "copyfilesandcode.generateCopyList",
         "title": "Generate Copy List"
+      },
+      {
+        "command": "copyfilesandcode.restoreFiles",
+        "title": "Restore Files"
       }
     ],
     "menus": {
@@ -33,6 +38,10 @@
         },
         {
           "command": "copyfilesandcode.generateCopyList",
+          "group": "navigation"
+        },
+        {
+          "command": "copyfilesandcode.restoreFiles",
           "group": "navigation"
         }
       ]
