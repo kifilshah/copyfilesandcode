@@ -10,21 +10,18 @@ export const restoreFiles = () => {
     }
 
     const rootPath = workspaceFolders[0].uri.fsPath;
-    const copiedFilesPath = path.join(rootPath, 'copiedfiles.txt');
+    const copiedFilesPath = path.join(rootPath, 'copiedfiles.json');
 
     if (!fs.existsSync(copiedFilesPath)) {
         vscode.window.showErrorMessage('No copied files to restore');
         return;
     }
 
-    const copiedContent = fs.readFileSync(copiedFilesPath, 'utf-8');
-    const copiedFiles = copiedContent.split('\n\n').filter(Boolean);
+    const copiedFiles = JSON.parse(fs.readFileSync(copiedFilesPath, 'utf-8'));
 
     for (const copiedFile of copiedFiles) {
-        const [header, ...contentLines] = copiedFile.split('\n');
-        const relativePath = header.replace('File: ', '');
-        const fileContent = contentLines.join('\n');
-        const filePath = path.join(rootPath, relativePath);
+        const filePath = path.join(rootPath, copiedFile.filePath);
+        const fileContent = copiedFile.content;
 
         // Check if the path is a directory
         if (fs.existsSync(filePath) && fs.lstatSync(filePath).isDirectory()) {
@@ -34,6 +31,5 @@ export const restoreFiles = () => {
         fs.writeFileSync(filePath, fileContent);
     }
 
-    vscode.window.showInformationMessage('Files restored from copiedfiles.txt');
+    vscode.window.showInformationMessage('Files restored from copiedfiles.json');
 };
-
