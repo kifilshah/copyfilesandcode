@@ -1,6 +1,6 @@
+package.json
 src\copyFiles.ts
 src\extension.ts
 src\generateCopyList.ts
 src\readDirectory.ts
 src\restoreFiles.ts
-package.json
