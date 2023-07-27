@@ -19,7 +19,7 @@ export const copyFiles = async () => {
     }
 
     const copyList = fs.readFileSync(copyListPath, 'utf-8').split('\n').filter(Boolean);
-    let copiedFiles: any[] = [];
+    let copiedContent: any[] = [];
 
     const readDirectory = (dirPath: string) => {
         const files = fs.readdirSync(dirPath);
@@ -33,7 +33,7 @@ export const copyFiles = async () => {
             } else {
                 const fileContent = fs.readFileSync(filePath, 'utf-8');
                 const relativePath = path.relative(rootPath, filePath);
-                copiedFiles.push({filePath: relativePath, content: fileContent});
+                copiedContent.push({filePath: relativePath, content: fileContent});
             }
         }
     };
@@ -49,12 +49,12 @@ export const copyFiles = async () => {
             } else {
                 const fileContent = fs.readFileSync(itemPath, 'utf-8');
                 const relativePath = path.relative(rootPath, itemPath);
-                copiedFiles.push({filePath: relativePath, content: fileContent});
+                copiedContent.push({filePath: relativePath, content: fileContent});
             }
         }
     }
 
-    fs.writeFileSync(copiedFilesPath, JSON.stringify(copiedFiles, null, 2));
+    fs.writeFileSync(copiedFilesPath, JSON.stringify(copiedContent, null, 2));
 
     vscode.window.showInformationMessage('Files copied to copiedfiles.json');
 };
