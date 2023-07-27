@@ -11,7 +11,7 @@ export const generateCopyList = () => {
 
     const rootPath = workspaceFolders[0].uri.fsPath;
     const copyListPath = path.join(rootPath, 'copylist.txt');
-    const copiedFilesPath = path.join(rootPath, 'copiedfiles.txt');
+    const copiedFilesPath = path.join(rootPath, 'copiedfiles.json');
 
     if (fs.existsSync(copyListPath) && fs.readFileSync(copyListPath, 'utf-8').trim() !== '') {
         const copyList = fs.readFileSync(copyListPath, 'utf-8').split('\n').filter(Boolean);
@@ -35,7 +35,7 @@ export const generateCopyList = () => {
 
         fs.readdirSync(rootPath).forEach(file => {
             const filePath = path.join(rootPath, file);
-            if (filePath !== copyListPath && filePath !== copiedFilesPath) {  // Exclude the copylist.txt and copiedfiles.txt files
+            if (filePath !== copyListPath && filePath !== copiedFilesPath) {  // Exclude the copylist.txt and copiedfiles.json files
                 copyList += file + '\n';
             }
         });
